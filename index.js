@@ -188,7 +188,7 @@ function sendNotification(endpoint, params) {
         requestPayload = encrypted.cipherText;
       }
       
-      var gcmKeyForThisRequest = gcmAPIKey || params.overrideGCMAPIKey;
+      var gcmKeyForThisRequest = params.overrideGCMAPIKey || gcmAPIKey;
 
       if (isGCM) {
         if (!gcmKeyForThisRequest) {
