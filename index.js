@@ -187,9 +187,11 @@ function sendNotification(endpoint, params) {
 
         requestPayload = encrypted.cipherText;
       }
+      
+      var gcmKeyForThisRequest = gcmAPIKey || params.overrideGCMAPIKey;
 
       if (isGCM) {
-        if (!gcmAPIKey) {
+        if (!gcmKeyForThisRequest) {
           console.warn('Attempt to send push notification to GCM endpoint, but no GCM key is defined'.bold.red);
         }
 
@@ -206,7 +208,7 @@ function sendNotification(endpoint, params) {
 
         options.path = options.path.substring(0, options.path.length - subscriptionId.length - 1);
 
-        options.headers['Authorization'] = 'key=' + gcmAPIKey;
+        options.headers['Authorization'] = 'key=' + gcmKeyForThisRequest;
         options.headers['Content-Type'] = 'application/json';
       }
 
